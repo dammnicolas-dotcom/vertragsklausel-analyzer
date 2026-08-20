@@ -4,9 +4,21 @@ import anthropic
 import streamlit as st
 from dotenv import load_dotenv
 
-from analyzer import analyze_contract
+from analyzer import AnalyseFehler, MODEL_ID, analyze_contract
 
 load_dotenv()
+
+# Grobe Kostenschaetzung, nur fuer claude-opus-5 (Stand siehe README); bei
+# anderem MODEL_ID wird keine Kostenschaetzung angezeigt, um keine falschen
+# Zahlen zu suggerieren.
+PREISE_PRO_1M_TOKEN = {"claude-opus-5": (5.0, 25.0)}
+
+RISIKO_ANZEIGE = {
+    "kein": ("⚪", "kein Risiko"),
+    "niedrig": ("🟡", "niedriges Risiko"),
+    "mittel": ("🟠", "mittleres Risiko"),
+    "hoch": ("🔴", "hohes Risiko"),
+}
 
 st.set_page_config(page_title="Vertragsklausel-Analyzer", page_icon="\U0001F4C4")
 st.title("Vertragsklausel-Analyzer")
@@ -22,6 +34,19 @@ if not api_key:
 
 client = anthropic.Anthropic(api_key=api_key)
 
+with st.expander("Hinweis zu Datenschutz und Verarbeitung", expanded=False):
+    st.markdown(
+        "Der Vertragsinhalt wird zur Analyse an die Claude API (Anthropic) uebertragen. "
+        "Lade keine echten Mandanten- oder Kundenvertraege mit personenbezogenen Daten hoch, "
+        "ohne vorher zu pruefen, ob dies datenschutzrechtlich zulaessig ist (z.B. durch "
+        "Schwaerzen/Anonymisieren sensibler Passagen). Dieses Tool speichert nichts dauerhaft "
+        "und ist ein Prototyp, kein produktiv freigegebenes System."
+    )
+
+einverstanden = st.checkbox(
+    "Ich bin berechtigt, diesen Vertrag zu verarbeiten und habe den Datenschutzhinweis gelesen."
+)
+
 tab_pdf, tab_text = st.tabs(["PDF hochladen", "Text einfuegen"])
 
 pdf_bytes = None
@@ -35,20 +60,39 @@ with tab_pdf:
 with tab_text:
     contract_text = st.text_area("Vertragstext", height=300, placeholder="Vertragstext hier einfuegen...")
 
-if st.button("Analysieren", type="primary", disabled=not (pdf_bytes or contract_text)):
+analysieren_disabled = not einverstanden or not (pdf_bytes or contract_text)
+if st.button("Analysieren", type="primary", disabled=analysieren_disabled):
     with st.spinner("Analysiere Vertrag..."):
         try:
-            result = analyze_contract(client, text=contract_text or None, pdf_bytes=pdf_bytes)
-        except Exception as exc:  # noqa: BLE001 - zeige Fehler direkt im UI
-            st.error(f"Analyse fehlgeschlagen: {exc}")
+            ergebnis = analyze_contract(client, text=contract_text or None, pdf_bytes=pdf_bytes)
+        except AnalyseFehler as exc:
+            st.error(str(exc))
         else:
+            result = ergebnis.analyse
+
+            usage_line = f"Tokens: {ergebnis.input_tokens} Input / {ergebnis.output_tokens} Output"
+            preise = PREISE_PRO_1M_TOKEN.get(MODEL_ID)
+            if preise:
+                kosten = (ergebnis.input_tokens / 1_000_000 * preise[0]) + (
+                    ergebnis.output_tokens / 1_000_000 * preise[1]
+                )
+                usage_line += f" (~${kosten:.4f})"
+            st.caption(usage_line)
+
             st.subheader("Gesamteinschaetzung")
             st.write(result.gesamteinschaetzung)
 
             st.subheader(f"Gefundene Klauseln ({len(result.klauseln)})")
             for klausel in result.klauseln:
-                icon = "⚠️" if klausel.risikobehaftet else "✅"
+                icon, label = RISIKO_ANZEIGE[klausel.risikostufe.value]
                 with st.expander(f"{icon} {klausel.typ.value} - {klausel.zusammenfassung}"):
+                    st.markdown(f"**Risikostufe:** {label}")
                     st.markdown(f"**Originaltext:**\n> {klausel.originaltext}")
-                    if klausel.risikobehaftet:
-                        st.markdown(f"**Risiko:** {klausel.risikobegruendung}")
+                    if klausel.beleg_verifiziert is True:
+                        st.caption("✅ Zitat im Quelltext verifiziert")
+                    elif klausel.beleg_verifiziert is False:
+                        st.caption("⚠️ Zitat konnte NICHT im Quelltext gefunden werden - moeglicherweise vom Modell umformuliert")
+                    else:
+                        st.caption("ℹ️ Zitat-Verifikation bei PDF-Uploads nicht verfuegbar")
+                    if klausel.risikostufe.value != "kein":
+                        st.markdown(f"**Begruendung:** {klausel.risikobegruendung}")

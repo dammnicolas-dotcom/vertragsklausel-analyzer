@@ -1,0 +1,37 @@
+FREELANCER-VERTRAG
+
+zwischen der TechStart Solutions GmbH ("Auftraggeber") und Max Mustermann,
+selbststaendiger Softwareentwickler ("Auftragnehmer")
+
+§ 1 Vertragsgegenstand
+Der Auftragnehmer entwickelt fuer den Auftraggeber Softwarekomponenten gemaess
+den jeweiligen Projektauftraegen (Statements of Work).
+
+§ 2 Laufzeit und Kuendigung
+Der Vertrag beginnt am 01.09.2026 und laeuft auf unbestimmte Zeit. Der
+Auftraggeber kann jederzeit ohne Angabe von Gruenden mit einer Frist von
+3 Werktagen kuendigen. Der Auftragnehmer kann nur zum Ende eines Kalenderjahres
+mit einer Frist von 6 Monaten kuendigen.
+
+§ 3 Vertraulichkeit und Wettbewerbsverbot
+Der Auftragnehmer verpflichtet sich, waehrend der Vertragslaufzeit und fuer
+einen Zeitraum von 5 Jahren nach Vertragsende keine Taetigkeit fuer
+Unternehmen aufzunehmen, die in irgendeiner Weise im IT-Bereich taetig sind.
+
+§ 4 Verguetung und Zahlungsbedingungen
+Die Verguetung betraegt 90 EUR pro Stunde. Rechnungen werden innerhalb von
+90 Tagen nach Rechnungsstellung beglichen. Bei verspaeteter Lieferung durch
+den Auftragnehmer behaelt sich der Auftraggeber vor, die Verguetung um bis
+zu 50% zu kuerzen.
+
+§ 5 Rechte an Arbeitsergebnissen
+Saemtliche Arbeitsergebnisse, einschliesslich aller Rechte an Vorleistungen
+und bereits vor Vertragsbeginn entwickelten Tools des Auftragnehmers, gehen
+vollstaendig und unwiderruflich auf den Auftraggeber ueber.
+
+§ 6 Vertragsstrafe
+Bei jedem Verstoss gegen § 3 dieses Vertrags wird eine Vertragsstrafe in Hoehe
+von 100.000 EUR faellig, unabhaengig vom tatsaechlich entstandenen Schaden.
+
+§ 7 Gerichtsstand
+Ausschliesslicher Gerichtsstand fuer alle Streitigkeiten ist Zug, Schweiz.

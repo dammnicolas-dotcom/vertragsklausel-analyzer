@@ -18,13 +18,29 @@ class Klauseltyp(str, Enum):
     SONSTIGES = "Sonstiges"
 
 
+class Risikostufe(str, Enum):
+    KEIN = "kein"
+    NIEDRIG = "niedrig"
+    MITTEL = "mittel"
+    HOCH = "hoch"
+
+
 class Klausel(BaseModel):
     typ: Klauseltyp
     originaltext: str = Field(description="Woertliches Zitat der Klausel aus dem Vertrag")
     zusammenfassung: str = Field(description="Kurze Zusammenfassung in einfacher Sprache")
-    risikobehaftet: bool = Field(description="True, wenn die Formulierung ungewoehnlich, einseitig oder riskant ist")
+    risikostufe: Risikostufe = Field(
+        description="kein/niedrig: unauffaellig oder geringfuegig vom Standard abweichend. "
+        "mittel: spuerbar einseitig oder ungewoehnlich. hoch: stark einseitig, ungewoehnlich "
+        "riskant oder mit erheblichem finanziellem/rechtlichem Nachteil verbunden."
+    )
     risikobegruendung: Optional[str] = Field(
-        default=None, description="Falls risikobehaftet: warum genau"
+        default=None, description="Falls risikostufe != kein: warum genau"
+    )
+    beleg_verifiziert: Optional[bool] = Field(
+        default=None,
+        description="Wird lokal nachtraeglich gesetzt (nicht vom Modell): True, wenn das "
+        "Zitat im Quelltext gefunden wurde. None, wenn keine Verifikation moeglich war (PDF).",
     )
 
 

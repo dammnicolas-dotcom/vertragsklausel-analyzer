@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Dienstleistungsvertrag",
+    "datei": "examples/beispiel_vertrag.txt",
+    "erwartete_typen": ["Haftung", "Gerichtsstand", "Vertraulichkeit", "Zahlungsbedingungen", "Laufzeit"]
+  },
+  {
+    "name": "Freelancer-Vertrag",
+    "datei": "examples/beispiel_vertrag_2.txt",
+    "erwartete_typen": ["Laufzeit", "Zahlungsbedingungen", "Vertragsstrafe", "Gerichtsstand"]
+  }
+]
