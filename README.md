@@ -11,6 +11,8 @@ strukturierter JSON-Ausgabe (Pydantic-Schema).
 auch den Datenschutz-Hinweis in der App, bevor echte Vertragsdaten hochgeladen
 werden.
 
+Lizenz: [MIT](LICENSE)
+
 ## Setup
 
 ```bash
