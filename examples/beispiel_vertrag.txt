@@ -1,0 +1,30 @@
+DIENSTLEISTUNGSVERTRAG
+
+zwischen der Muster GmbH ("Auftraggeber") und der Beispiel Consulting UG ("Auftragnehmer")
+
+§ 1 Vertragsgegenstand
+Der Auftragnehmer erbringt fuer den Auftraggeber IT-Beratungsleistungen gemaess
+separatem Leistungsschein.
+
+§ 2 Laufzeit und Kuendigung
+Der Vertrag wird auf unbestimmte Zeit geschlossen. Er kann von beiden Parteien
+mit einer Frist von zwoelf (12) Monaten zum Quartalsende gekuendigt werden.
+Der Auftraggeber kann den Vertrag zusaetzlich jederzeit fristlos kuendigen,
+wenn der Auftragnehmer gegen Weisungen des Auftraggebers verstoesst.
+
+§ 3 Haftung
+Der Auftragnehmer haftet fuer alle Schaeden, gleich welcher Art, unbegrenzt,
+auch fuer leichte Fahrlaessigkeit und mittelbare Schaeden sowie entgangenen
+Gewinn. Der Auftraggeber haftet nicht.
+
+§ 4 Verguetung
+Die Verguetung betraegt 150 EUR pro Stunde und ist innerhalb von 14 Tagen
+nach Rechnungsstellung faellig.
+
+§ 5 Vertraulichkeit
+Beide Parteien verpflichten sich, alle im Rahmen der Zusammenarbeit erlangten
+vertraulichen Informationen geheim zu halten.
+
+§ 6 Gerichtsstand
+Gerichtsstand fuer alle Streitigkeiten aus diesem Vertrag ist ausschliesslich
+der Sitz des Auftraggebers.
